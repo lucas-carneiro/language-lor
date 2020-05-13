@@ -35,6 +35,8 @@
             this.languageTextLabel = new System.Windows.Forms.Label();
             this.languageVoiceLabel = new System.Windows.Forms.Label();
             this.lorDirectoryDialog = new System.Windows.Forms.OpenFileDialog();
+            this.lorInstallPathTextField = new System.Windows.Forms.TextBox();
+            this.lorInstallPathLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ChangeButton
@@ -50,7 +52,7 @@
             // languageTextPicker
             // 
             this.languageTextPicker.FormattingEnabled = true;
-            this.languageTextPicker.Location = new System.Drawing.Point(88, 140);
+            this.languageTextPicker.Location = new System.Drawing.Point(87, 140);
             this.languageTextPicker.Name = "languageTextPicker";
             this.languageTextPicker.Size = new System.Drawing.Size(121, 23);
             this.languageTextPicker.TabIndex = 1;
@@ -87,19 +89,39 @@
             this.lorDirectoryDialog.FileName = "openFileDialog1";
             this.lorDirectoryDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // MainWindow
+            // lorInstallPathTextField
+            // 
+            this.lorInstallPathTextField.Enabled = false;
+            this.lorInstallPathTextField.Location = new System.Drawing.Point(87, 69);
+            this.lorInstallPathTextField.Name = "lorInstallPathTextField";
+            this.lorInstallPathTextField.Size = new System.Drawing.Size(275, 23);
+            this.lorInstallPathTextField.TabIndex = 5;
+            // 
+            // lorInstallPathLabel
+            // 
+            this.lorInstallPathLabel.Location = new System.Drawing.Point(87, 43);
+            this.lorInstallPathLabel.Name = "lorInstallPathLabel";
+            this.lorInstallPathLabel.Size = new System.Drawing.Size(275, 23);
+            this.lorInstallPathLabel.TabIndex = 6;
+            this.lorInstallPathLabel.Text = "Legends of Runeterra Path";
+            this.lorInstallPathLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(462, 279);
+            this.Controls.Add(this.lorInstallPathLabel);
+            this.Controls.Add(this.lorInstallPathTextField);
             this.Controls.Add(this.languageVoiceLabel);
             this.Controls.Add(this.languageTextLabel);
             this.Controls.Add(this.languageVoicePicker);
             this.Controls.Add(this.languageTextPicker);
             this.Controls.Add(this.ChangeButton);
-            this.Name = "MainWindow";
+            this.Name = "Form1";
             this.Text = "Language Picker LoR";
             this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         #endregion
@@ -110,5 +132,7 @@
         private System.Windows.Forms.Label languageTextLabel;
         private System.Windows.Forms.Label languageVoiceLabel;
         private System.Windows.Forms.OpenFileDialog lorDirectoryDialog;
+        private System.Windows.Forms.Label lorInstallPathLabel;
+        private System.Windows.Forms.TextBox lorInstallPathTextField;
     }
 }

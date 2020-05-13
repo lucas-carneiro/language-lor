@@ -12,12 +12,10 @@ namespace LanguageLoR
 {
     public partial class MainWindow : Form
     {
-        private string lorInstallPath;
-        
         public MainWindow(string lorInstallPath)
         {
-            this.lorInstallPath = lorInstallPath;
             InitializeComponent();
+            lorInstallPathTextField.Text = lorInstallPath;
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -1,34 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
+using System.IO;
 using System.Windows.Forms;
 
 namespace LanguageLoR
 {
     public partial class MainWindow : Form
     {
-        public MainWindow(string lorInstallPath)
+        public MainWindow(string lorInstallPath, string[] languageFiles)
         {
             InitializeComponent();
             lorInstallPathTextField.Text = lorInstallPath;
+            foreach (string languageFile in languageFiles)
+            {
+                string languageFileName = Path.GetFileNameWithoutExtension(languageFile);
+                if (languageFileName != null)
+                {
+                    string languageName = new CultureInfo(languageFileName).EnglishName;
+                    languageDefaultPicker.Items.Add(languageName);
+                    languageTextPicker.Items.Add(languageName);
+                    languageVoicePicker.Items.Add(languageName);
+                }
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        private void ChangeLanguageButtonClick(object sender, EventArgs e)
         {
             throw new System.NotImplementedException();
         }

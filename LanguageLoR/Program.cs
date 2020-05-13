@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
@@ -12,7 +13,7 @@ namespace LanguageLoR
         [STAThread]
         static void Main()
         {
-            string lorInstallPath = "";
+            string lorInstallPath = "Path not found! LoR is probably not installed.";
             
             try
             {
@@ -23,11 +24,6 @@ namespace LanguageLoR
                     {
                         Object installPathObject = lorKey.GetValue("InstallLocation");
                         lorInstallPath = installPathObject as string ?? lorInstallPath;
-                        Console.WriteLine($"LoR Install Path: {lorInstallPath}");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Registry key not found! LoR is probably not installed.");
                     }
                 }
             }
@@ -36,10 +32,12 @@ namespace LanguageLoR
                 Console.WriteLine(e);
                 throw;
             }
-            
+
+            string[] languageFiles = Directory.GetFiles($"{lorInstallPath}/LoR_Data/Plugins/locales", "*.pak");
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow(lorInstallPath));
+            Application.Run(new MainWindow(lorInstallPath, languageFiles));
         }
     }
 }

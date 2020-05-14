@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
@@ -7,9 +6,9 @@ namespace LanguageLoR
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        private const string LorRegistryKey = "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Riot Game bacon.live";
+        private const string LorRegistryName = "InstallLocation";
+
         [STAThread]
         static void Main()
         {
@@ -17,12 +16,11 @@ namespace LanguageLoR
             
             try
             {
-                string lorRegistryKey = "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Riot Game bacon.live";
-                using (RegistryKey lorKey = Registry.CurrentUser.OpenSubKey(lorRegistryKey))
+                using (RegistryKey lorKey = Registry.CurrentUser.OpenSubKey(LorRegistryKey))
                 {
                     if (lorKey != null)
                     {
-                        Object installPathObject = lorKey.GetValue("InstallLocation");
+                        Object installPathObject = lorKey.GetValue(LorRegistryName);
                         lorInstallPath = installPathObject as string ?? lorInstallPath;
                     }
                 }
@@ -30,14 +28,13 @@ namespace LanguageLoR
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
             }
 
-            string[] languageFiles = Directory.GetFiles($"{lorInstallPath}/LoR_Data/Plugins/locales", "*.pak");
-
+            FileService.Init(lorInstallPath);
+            LanguageService.Init();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow(lorInstallPath, languageFiles));
+            Application.Run(new MainWindow());
         }
     }
 }

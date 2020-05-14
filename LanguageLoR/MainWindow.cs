@@ -28,5 +28,10 @@ namespace LanguageLoR
         {
             throw new System.NotImplementedException();
         }
+        private void SelectLanguageDefaultPicker(object sender, EventArgs e)
+        {
+            languageTextPicker.SelectedIndex = languageDefaultPicker.SelectedIndex;
+            languageVoicePicker.SelectedIndex = languageDefaultPicker.SelectedIndex;
+        }
     }
 }

@@ -42,7 +42,7 @@
             // 
             // changeLanguageButton
             // 
-            this.changeLanguageButton.Location = new System.Drawing.Point(157, 209);
+            this.changeLanguageButton.Location = new System.Drawing.Point(157, 265);
             this.changeLanguageButton.Name = "changeLanguageButton";
             this.changeLanguageButton.Size = new System.Drawing.Size(140, 31);
             this.changeLanguageButton.TabIndex = 0;
@@ -53,33 +53,33 @@
             // languageTextPicker
             // 
             this.languageTextPicker.FormattingEnabled = true;
-            this.languageTextPicker.Location = new System.Drawing.Point(166, 147);
+            this.languageTextPicker.Location = new System.Drawing.Point(42, 213);
             this.languageTextPicker.Name = "languageTextPicker";
-            this.languageTextPicker.Size = new System.Drawing.Size(121, 23);
+            this.languageTextPicker.Size = new System.Drawing.Size(174, 23);
             this.languageTextPicker.TabIndex = 1;
             // 
             // languageVoicePicker
             // 
             this.languageVoicePicker.FormattingEnabled = true;
-            this.languageVoicePicker.Location = new System.Drawing.Point(300, 147);
+            this.languageVoicePicker.Location = new System.Drawing.Point(234, 213);
             this.languageVoicePicker.Name = "languageVoicePicker";
-            this.languageVoicePicker.Size = new System.Drawing.Size(121, 23);
+            this.languageVoicePicker.Size = new System.Drawing.Size(174, 23);
             this.languageVoicePicker.TabIndex = 2;
             // 
             // languageTextLabel
             // 
-            this.languageTextLabel.Location = new System.Drawing.Point(166, 121);
+            this.languageTextLabel.Location = new System.Drawing.Point(42, 188);
             this.languageTextLabel.Name = "languageTextLabel";
-            this.languageTextLabel.Size = new System.Drawing.Size(121, 23);
+            this.languageTextLabel.Size = new System.Drawing.Size(174, 23);
             this.languageTextLabel.TabIndex = 3;
             this.languageTextLabel.Text = "Text Language";
             this.languageTextLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // languageVoiceLabel
             // 
-            this.languageVoiceLabel.Location = new System.Drawing.Point(300, 121);
+            this.languageVoiceLabel.Location = new System.Drawing.Point(234, 188);
             this.languageVoiceLabel.Name = "languageVoiceLabel";
-            this.languageVoiceLabel.Size = new System.Drawing.Size(121, 23);
+            this.languageVoiceLabel.Size = new System.Drawing.Size(174, 23);
             this.languageVoiceLabel.TabIndex = 4;
             this.languageVoiceLabel.Text = "Voice Language";
             this.languageVoiceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -87,14 +87,14 @@
             // lorInstallPathTextField
             // 
             this.lorInstallPathTextField.Enabled = false;
-            this.lorInstallPathTextField.Location = new System.Drawing.Point(91, 67);
+            this.lorInstallPathTextField.Location = new System.Drawing.Point(90, 73);
             this.lorInstallPathTextField.Name = "lorInstallPathTextField";
             this.lorInstallPathTextField.Size = new System.Drawing.Size(275, 23);
             this.lorInstallPathTextField.TabIndex = 5;
             // 
             // lorInstallPathLabel
             // 
-            this.lorInstallPathLabel.Location = new System.Drawing.Point(91, 42);
+            this.lorInstallPathLabel.Location = new System.Drawing.Point(90, 48);
             this.lorInstallPathLabel.Name = "lorInstallPathLabel";
             this.lorInstallPathLabel.Size = new System.Drawing.Size(275, 23);
             this.lorInstallPathLabel.TabIndex = 6;
@@ -103,9 +103,9 @@
             // 
             // languageDefaultLabel
             // 
-            this.languageDefaultLabel.Location = new System.Drawing.Point(31, 121);
+            this.languageDefaultLabel.Location = new System.Drawing.Point(136, 114);
             this.languageDefaultLabel.Name = "languageDefaultLabel";
-            this.languageDefaultLabel.Size = new System.Drawing.Size(121, 23);
+            this.languageDefaultLabel.Size = new System.Drawing.Size(174, 23);
             this.languageDefaultLabel.TabIndex = 8;
             this.languageDefaultLabel.Text = "Default Language";
             this.languageDefaultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -113,16 +113,17 @@
             // languageDefaultPicker
             // 
             this.languageDefaultPicker.FormattingEnabled = true;
-            this.languageDefaultPicker.Location = new System.Drawing.Point(31, 147);
+            this.languageDefaultPicker.Location = new System.Drawing.Point(136, 140);
             this.languageDefaultPicker.Name = "languageDefaultPicker";
-            this.languageDefaultPicker.Size = new System.Drawing.Size(121, 23);
+            this.languageDefaultPicker.Size = new System.Drawing.Size(174, 23);
             this.languageDefaultPicker.TabIndex = 7;
+            this.languageDefaultPicker.SelectedValueChanged += new System.EventHandler(this.SelectLanguageDefaultPicker);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 279);
+            this.ClientSize = new System.Drawing.Size(462, 343);
             this.Controls.Add(this.languageDefaultLabel);
             this.Controls.Add(this.languageDefaultPicker);
             this.Controls.Add(this.lorInstallPathLabel);

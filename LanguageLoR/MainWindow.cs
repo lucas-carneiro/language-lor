@@ -5,7 +5,6 @@ namespace LanguageLoR
 {
     public partial class MainWindow : Form
     {
-        private string[] languageFiles;
         public MainWindow()
         {
             InitializeComponent();
@@ -18,9 +17,9 @@ namespace LanguageLoR
         private void ChangeLanguageButtonClick(object sender, EventArgs e)
         {
             FileService.UpdateLanguage(
-                languageFiles[languageDefaultPicker.SelectedIndex],
-                languageFiles[languageTextPicker.SelectedIndex],
-                languageFiles[languageVoicePicker.SelectedIndex]
+                languageDefaultPicker.SelectedIndex,
+                languageTextPicker.SelectedIndex,
+                languageVoicePicker.SelectedIndex
             );
         }
         

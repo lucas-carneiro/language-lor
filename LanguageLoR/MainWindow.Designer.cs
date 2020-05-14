@@ -38,11 +38,12 @@
             this.lorInstallPathLabel = new System.Windows.Forms.Label();
             this.languageDefaultLabel = new System.Windows.Forms.Label();
             this.languageDefaultPicker = new System.Windows.Forms.ComboBox();
+            this.loadingLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // changeLanguageButton
             // 
-            this.changeLanguageButton.Location = new System.Drawing.Point(157, 265);
+            this.changeLanguageButton.Location = new System.Drawing.Point(153, 265);
             this.changeLanguageButton.Name = "changeLanguageButton";
             this.changeLanguageButton.Size = new System.Drawing.Size(140, 31);
             this.changeLanguageButton.TabIndex = 0;
@@ -119,11 +120,20 @@
             this.languageDefaultPicker.TabIndex = 7;
             this.languageDefaultPicker.SelectedValueChanged += new System.EventHandler(this.SelectLanguageDefaultPicker);
             // 
+            // loadingLabel
+            // 
+            this.loadingLabel.Location = new System.Drawing.Point(42, 299);
+            this.loadingLabel.Name = "loadingLabel";
+            this.loadingLabel.Size = new System.Drawing.Size(366, 23);
+            this.loadingLabel.TabIndex = 9;
+            this.loadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(462, 343);
+            this.Controls.Add(this.loadingLabel);
             this.Controls.Add(this.languageDefaultLabel);
             this.Controls.Add(this.languageDefaultPicker);
             this.Controls.Add(this.lorInstallPathLabel);
@@ -150,5 +160,6 @@
         private System.Windows.Forms.Label languageDefaultLabel;
         private System.Windows.Forms.ComboBox languageDefaultPicker;
         private System.Windows.Forms.Button changeLanguageButton;
+        private System.Windows.Forms.Label loadingLabel;
     }
 }

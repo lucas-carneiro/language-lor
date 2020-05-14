@@ -12,7 +12,7 @@ namespace LanguageLoR
         [STAThread]
         static void Main()
         {
-            string lorInstallPath = "Path not found! LoR is probably not installed.";
+            string lorRegistryValue = "Path not found! LoR is probably not installed.";
             
             try
             {
@@ -21,7 +21,7 @@ namespace LanguageLoR
                     if (lorKey != null)
                     {
                         Object installPathObject = lorKey.GetValue(LorRegistryName);
-                        lorInstallPath = installPathObject as string ?? lorInstallPath;
+                        lorRegistryValue = installPathObject as string ?? lorRegistryValue;
                     }
                 }
             }
@@ -30,7 +30,7 @@ namespace LanguageLoR
                 Console.WriteLine(e);
             }
 
-            FileService.Init(lorInstallPath);
+            FileService.Init(lorRegistryValue);
             LanguageService.Init();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

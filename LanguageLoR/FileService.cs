@@ -7,9 +7,9 @@ namespace LanguageLoR
     public static class FileService
     {
         private const string LorFolderName = "LoR";
-        private const string LocalesPath = "/live/Game/LoR_Data/Plugins/locales/";
-        private const string GamePlayDataPath = "/live/PatcherData/PatchableFiles/GamePlayData/";
-        private const string EmbeddedGamePlayDataPath = "/live/Game/LoR_Data/StreamingAssets/EmbeddedGamePlayData/";
+        private static string _localesPath = "/live/Game/LoR_Data/Plugins/locales/";
+        private static string _gamePlayDataPath = "/live/PatcherData/PatchableFiles/GamePlayData/";
+        private static string _embeddedGamePlayDataPath = "/live/Game/LoR_Data/StreamingAssets/EmbeddedGamePlayData/";
         
         private static readonly string[] LocalesLanguageExtensions = { ".pak", ".pak.info" };
         public const string LocalizedLanguageFileName = "LocalizedText_";
@@ -24,7 +24,12 @@ namespace LanguageLoR
         {
             LorInstallPath = lorInstallPath?.Substring(0, lorInstallPath.IndexOf(LorFolderName, StringComparison.Ordinal) + LorFolderName.Length);
             LorProgramDataPath = lorProgramDataPath?.Substring(0, lorProgramDataPath.LastIndexOf('/'));
-            LanguageFiles = Directory.GetFiles($"{LorInstallPath}{GamePlayDataPath}", $"{LocalizedLanguageFileName}*{LocalizedLanguageExtension}")
+            
+            _localesPath = $"{LorInstallPath}{_localesPath}";
+            _gamePlayDataPath = $"{LorInstallPath}{_gamePlayDataPath}";
+            _embeddedGamePlayDataPath = $"{LorInstallPath}{_embeddedGamePlayDataPath}";
+            
+            LanguageFiles = Directory.GetFiles(_gamePlayDataPath, $"{LocalizedLanguageFileName}*{LocalizedLanguageExtension}")
                 .Where(s => !s.Contains(LanguageService.NoLocalizedLanguage)).ToArray();
         }
 
@@ -53,8 +58,8 @@ namespace LanguageLoR
 
         private static string LocalizedLanguageToFile(string localizedLanguage, bool isEmbedded)
         {
-            string languagePath = isEmbedded ? EmbeddedGamePlayDataPath : GamePlayDataPath;
-            return $"{LorInstallPath}{languagePath}{localizedLanguage}";
+            string languagePath = isEmbedded ? _embeddedGamePlayDataPath : _gamePlayDataPath;
+            return $"{languagePath}{localizedLanguage}";
         }
 
         private static void UpdateLocalesLanguage(int languageDefaultIndex, int languageTextIndex)
@@ -70,8 +75,8 @@ namespace LanguageLoR
 
             foreach (string languageExtension in LocalesLanguageExtensions)
             {
-                string defaultLanguagePath = $"{LorInstallPath}{LocalesPath}{localeLanguageDefault}{languageExtension}";
-                string newLanguagePath = $"{LorInstallPath}{LocalesPath}{localeLanguageText}{languageExtension}";
+                string defaultLanguagePath = $"{_localesPath}{localeLanguageDefault}{languageExtension}";
+                string newLanguagePath = $"{_localesPath}{localeLanguageText}{languageExtension}";
                 ReplaceLanguageFile(newLanguagePath, defaultLanguagePath);
             }
         }

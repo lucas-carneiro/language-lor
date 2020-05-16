@@ -5,10 +5,11 @@ namespace LanguageLoR
 {
     public partial class MainWindow : Form
     {
+        private const string LorPathNotFoundErrorMessage = "Path not found! LoR is probably not installed.";
         public MainWindow()
         {
             InitializeComponent();
-            lorInstallPathTextField.Text = FileService.LorInstallPath;
+            lorInstallPathTextField.Text = FileService.LorInstallPath ?? LorPathNotFoundErrorMessage;
             languageDefaultPicker.Items.AddRange(LanguageService.Languages);
             languageTextPicker.Items.AddRange(LanguageService.Languages);
             languageVoicePicker.Items.AddRange(LanguageService.Languages);

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using YamlDotNet.RepresentationModel;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace LanguageLoR
 {
@@ -10,20 +13,24 @@ namespace LanguageLoR
         private static string _localesPath = "/live/Game/LoR_Data/Plugins/locales/";
         private static string _gamePlayDataPath = "/live/PatcherData/PatchableFiles/GamePlayData/";
         private static string _embeddedGamePlayDataPath = "/live/Game/LoR_Data/StreamingAssets/EmbeddedGamePlayData/";
+        private static string _lorProgramDataPath;
         
         private static readonly string[] LocalesLanguageExtensions = { ".pak", ".pak.info" };
         public const string LocalizedLanguageFileName = "LocalizedText_";
         private const string LocalizedLanguageExtension = ".bin";
         private const string BackupExtension = ".bkp";
+        private const string LorSettingsFilename = "bacon.live.product_settings.yaml";
 
         public static string LorInstallPath { get; private set; }
-        public static string LorProgramDataPath { get; private set; }
         public static string[] LanguageFiles { get; private set; }
+        public static ProductSettingsModel LorSettings { get; private set; }
 
-        public static void Init(string lorInstallPath, string lorProgramDataPath)
+        public static void Init()
         {
-            LorInstallPath = lorInstallPath?.Substring(0, lorInstallPath.IndexOf(LorFolderName, StringComparison.Ordinal) + LorFolderName.Length);
-            LorProgramDataPath = lorProgramDataPath?.Substring(0, lorProgramDataPath.LastIndexOf('/'));
+            LorInstallPath = RegistryService.LorInstallPathRegistryValue?
+                .Substring(0, RegistryService.LorInstallPathRegistryValue.IndexOf(LorFolderName, StringComparison.Ordinal) + LorFolderName.Length);
+            _lorProgramDataPath = RegistryService.LorProgramDataPathRegistryValue?
+                .Substring(0, RegistryService.LorProgramDataPathRegistryValue.LastIndexOf('/') + 1);
             
             _localesPath = $"{LorInstallPath}{_localesPath}";
             _gamePlayDataPath = $"{LorInstallPath}{_gamePlayDataPath}";
@@ -31,6 +38,12 @@ namespace LanguageLoR
             
             LanguageFiles = Directory.GetFiles(_gamePlayDataPath, $"{LocalizedLanguageFileName}*{LocalizedLanguageExtension}")
                 .Where(s => !s.Contains(LanguageService.NoLocalizedLanguage)).ToArray();
+
+            StreamReader lorSettingsStream = File.OpenText($"{_lorProgramDataPath}{LorSettingsFilename}");
+            IDeserializer deserializer = new DeserializerBuilder()
+                .WithNamingConvention(UnderscoredNamingConvention.Instance)
+                .Build();
+            LorSettings = deserializer.Deserialize<ProductSettingsModel>(lorSettingsStream);
         }
 
         public static void UpdateLanguage(int languageDefaultIndex, int languageTextIndex, int languageVoiceIndex)

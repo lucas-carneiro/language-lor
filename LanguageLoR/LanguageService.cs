@@ -5,21 +5,33 @@ namespace LanguageLoR
 {
     public static class LanguageService
     {
-        public static string[] Languages { get; private set; }
         public const string NoLocalizedLanguage = "no_TX";
+        
+        public static string[] TextLanguages { get; private set; }
+        public static string[] VoiceLanguages { get; private set; }
+        public static string DefaultLanguage { get; set; }
 
         public static void Init()
         {
-            Languages = new string[FileService.LanguageFiles.Length];
-            for (int i = 0; i < Languages.Length; i++)
+            TextLanguages = new string[FileService.LanguageFiles.Length];
+            for (int i = 0; i < TextLanguages.Length; i++)
             {
                 string languageFileName = Path.GetFileNameWithoutExtension(FileService.LanguageFiles[i]);
                 if (languageFileName != null)
                 {
                     languageFileName = languageFileName.Substring(FileService.LocalizedLanguageFileName.Length);
-                    Languages[i] = new CultureInfo(languageFileName).EnglishName;
+                    TextLanguages[i] = new CultureInfo(languageFileName).EnglishName;
                 }
             }
+            
+            VoiceLanguages = new string[FileService.LorSettings.LocaleData.AvailableLocales.Length];
+            for (int i = 0; i < VoiceLanguages.Length; i++)
+            {
+                string languageName = FileService.LorSettings.LocaleData.AvailableLocales[i];
+                VoiceLanguages[i] = new CultureInfo(languageName).EnglishName;
+            }
+
+            DefaultLanguage = new CultureInfo(FileService.LorSettings.Settings.Locale).EnglishName;
         }
 
         public static string LocalizedLanguage(string language)

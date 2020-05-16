@@ -10,9 +10,12 @@ namespace LanguageLoR
         {
             InitializeComponent();
             lorInstallPathTextField.Text = FileService.LorInstallPath ?? LorPathNotFoundErrorMessage;
-            languageDefaultPicker.Items.AddRange(LanguageService.Languages);
-            languageTextPicker.Items.AddRange(LanguageService.Languages);
-            languageVoicePicker.Items.AddRange(LanguageService.Languages);
+            
+            languageDefaultPicker.Items.AddRange(LanguageService.VoiceLanguages);
+            languageTextPicker.Items.AddRange(LanguageService.TextLanguages);
+            languageVoicePicker.Items.AddRange(LanguageService.VoiceLanguages);
+
+            languageDefaultPicker.SelectedItem = LanguageService.DefaultLanguage;
         }
 
         private void ChangeLanguageButtonClick(object sender, EventArgs e)
@@ -31,8 +34,8 @@ namespace LanguageLoR
         
         private void SelectLanguageDefaultPicker(object sender, EventArgs e)
         {
-            languageTextPicker.SelectedIndex = languageDefaultPicker.SelectedIndex;
-            languageVoicePicker.SelectedIndex = languageDefaultPicker.SelectedIndex;
+            languageTextPicker.SelectedItem = languageDefaultPicker.SelectedItem;
+            languageVoicePicker.SelectedItem = languageDefaultPicker.SelectedItem;
         }
     }
 }

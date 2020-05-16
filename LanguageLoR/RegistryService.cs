@@ -9,12 +9,12 @@ namespace LanguageLoR
         private const string LorGamePathRegistryName = "InstallLocation";
         private const string LorProgramDataPathRegistryName = "DisplayIcon";
 
-        public static string LorGamePathRegistryValue { get; private set; }
+        public static string LorInstallPathRegistryValue { get; private set; }
         public static string LorProgramDataPathRegistryValue { get; private set; }
 
         public static void Init()
         {
-            LorGamePathRegistryValue = GetRegistryValue(LorGamePathRegistryName);
+            LorInstallPathRegistryValue = GetRegistryValue(LorGamePathRegistryName);
             LorProgramDataPathRegistryValue = GetRegistryValue(LorProgramDataPathRegistryName);
         }
 

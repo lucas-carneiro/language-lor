@@ -27,20 +27,13 @@ namespace LanguageLoR
             
             foreach (string languageExtension in LanguageExtensions)
             {
-                if (File.Exists($"{LorInstallPath}{LocalesPath}{languageDefault}{languageExtension}{BackupExtension}"))
-                {
-                    File.Replace(
-                        $"{LorInstallPath}{LocalesPath}{languageText}{languageExtension}",
-                        $"{LorInstallPath}{LocalesPath}{languageDefault}{languageExtension}",
-                        null);
-                }
-                else
-                {
-                    File.Replace(
-                        $"{LorInstallPath}{LocalesPath}{languageText}{languageExtension}",
-                        $"{LorInstallPath}{LocalesPath}{languageDefault}{languageExtension}",
-                        $"{LorInstallPath}{LocalesPath}{languageDefault}{languageExtension}{BackupExtension}");
-                }
+                string defaultLanguagePath = $"{LorInstallPath}{LocalesPath}{languageDefault}{languageExtension}";
+                string newLanguagePath = $"{LorInstallPath}{LocalesPath}{languageText}{languageExtension}";
+                string backupPath = $"{defaultLanguagePath}{BackupExtension}";
+                File.Replace(
+                    newLanguagePath,
+                    defaultLanguagePath,
+                    File.Exists(backupPath) ? null : backupPath);
             }
         }
     }

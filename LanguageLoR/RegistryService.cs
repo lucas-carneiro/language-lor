@@ -16,7 +16,6 @@ namespace LanguageLoR
         {
             LorGamePathRegistryValue = GetRegistryValue(LorGamePathRegistryName);
             LorProgramDataPathRegistryValue = GetRegistryValue(LorProgramDataPathRegistryName);
-            LorProgramDataPathRegistryValue = LorProgramDataPathRegistryValue?.Substring(0, LorProgramDataPathRegistryValue.LastIndexOf('/'));
         }
 
         private static string GetRegistryValue(string registryName)

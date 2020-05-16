@@ -9,7 +9,7 @@ namespace LanguageLoR
         static void Main()
         {
             RegistryService.Init();
-            FileService.Init(RegistryService.LorGamePathRegistryValue);
+            FileService.Init(RegistryService.LorGamePathRegistryValue, RegistryService.LorProgramDataPathRegistryValue);
             LanguageService.Init();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

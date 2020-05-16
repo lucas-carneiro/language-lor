@@ -17,13 +17,16 @@ namespace LanguageLoR
 
         private void ChangeLanguageButtonClick(object sender, EventArgs e)
         {
-            loadingLabel.Text = "Replacing language...";
-            FileService.UpdateLanguage(
-                languageDefaultPicker.SelectedIndex,
-                languageTextPicker.SelectedIndex,
-                languageVoicePicker.SelectedIndex
-            );
-            loadingLabel.Text = "Language successfully replaced!";
+            if (languageDefaultPicker.SelectedIndex != languageTextPicker.SelectedIndex)
+            {
+                loadingLabel.Text = "Replacing language...";
+                FileService.UpdateLanguage(
+                    languageDefaultPicker.SelectedIndex,
+                    languageTextPicker.SelectedIndex,
+                    languageVoicePicker.SelectedIndex
+                );
+                loadingLabel.Text = "Language successfully replaced!";
+            }
         }
         
         private void SelectLanguageDefaultPicker(object sender, EventArgs e)

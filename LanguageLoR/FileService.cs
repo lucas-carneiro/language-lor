@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
 
 namespace LanguageLoR
 {
@@ -10,16 +12,20 @@ namespace LanguageLoR
         private const string EmbeddedGamePlayDataPath = "/live/Game/LoR_Data/StreamingAssets/EmbeddedGamePlayData/";
         
         private static readonly string[] LocalesLanguageExtensions = { ".pak", ".pak.info" };
+        public const string LocalizedLanguageFileName = "LocalizedText_";
         private const string LocalizedLanguageExtension = ".bin";
         private const string BackupExtension = ".bkp";
 
         public static string LorInstallPath { get; private set; }
+        public static string LorProgramDataPath { get; private set; }
         public static string[] LanguageFiles { get; private set; }
 
-        public static void Init(string lorInstallPath)
+        public static void Init(string lorInstallPath, string lorProgramDataPath)
         {
-            LorInstallPath = lorInstallPath.Substring(0, lorInstallPath.IndexOf(LorFolderName) + LorFolderName.Length);
-            LanguageFiles = Directory.GetFiles($"{LorInstallPath}{LocalesPath}", $"*{LocalesLanguageExtensions[0]}");
+            LorInstallPath = lorInstallPath?.Substring(0, lorInstallPath.IndexOf(LorFolderName, StringComparison.Ordinal) + LorFolderName.Length);
+            LorProgramDataPath = lorProgramDataPath?.Substring(0, lorProgramDataPath.LastIndexOf('/'));
+            LanguageFiles = Directory.GetFiles($"{LorInstallPath}{GamePlayDataPath}", $"{LocalizedLanguageFileName}*{LocalizedLanguageExtension}")
+                .Where(s => !s.Contains(LanguageService.NoLocalizedLanguage)).ToArray();
         }
 
         public static void UpdateLanguage(int languageDefaultIndex, int languageTextIndex, int languageVoiceIndex)
@@ -36,18 +42,11 @@ namespace LanguageLoR
 
         private static void UpdateGamePlayDataLanguage(int languageDefaultIndex, int languageTextIndex, bool isEmbedded = false)
         {
-            string languageDefault = Path.GetFileNameWithoutExtension(LanguageFiles[languageDefaultIndex]);
-            string languageText = Path.GetFileNameWithoutExtension(LanguageFiles[languageTextIndex]);
-            
-            if (languageDefault == languageText) return;
+            string languageDefault = Path.GetFileName(LanguageFiles[languageDefaultIndex]);
+            string languageText = Path.GetFileName(LanguageFiles[languageTextIndex]);
 
-            string localizedLanguageDefault = LanguageService.LocalizeLanguage(languageDefault);
-            string localizedLanguageText = LanguageService.LocalizeLanguage(languageText);
-
-            string defaultLanguagePath = LocalizedLanguageToFile(localizedLanguageDefault, isEmbedded);
-            string newLanguagePath = LocalizedLanguageToFile(localizedLanguageText, isEmbedded);
-            
-            if (defaultLanguagePath == newLanguagePath) return;
+            string defaultLanguagePath = LocalizedLanguageToFile(languageDefault, isEmbedded);
+            string newLanguagePath = LocalizedLanguageToFile(languageText, isEmbedded);
             
             ReplaceLanguageFile(newLanguagePath, defaultLanguagePath);
         }
@@ -55,21 +54,24 @@ namespace LanguageLoR
         private static string LocalizedLanguageToFile(string localizedLanguage, bool isEmbedded)
         {
             string languagePath = isEmbedded ? EmbeddedGamePlayDataPath : GamePlayDataPath;
-            string file = $"{LorInstallPath}{languagePath}LocalizedText_{localizedLanguage}{LocalizedLanguageExtension}";
-            return File.Exists(file) ? file : file.Replace(localizedLanguage, LanguageService.NoLocalizedLanguage);
+            return $"{LorInstallPath}{languagePath}{localizedLanguage}";
         }
 
         private static void UpdateLocalesLanguage(int languageDefaultIndex, int languageTextIndex)
         {
-            string languageDefault = Path.GetFileNameWithoutExtension(LanguageFiles[languageDefaultIndex]);
-            string languageText = Path.GetFileNameWithoutExtension(LanguageFiles[languageTextIndex]);
+            string languageDefaultFileName = Path.GetFileNameWithoutExtension(LanguageFiles[languageDefaultIndex]);
+            string languageTextFileName = Path.GetFileNameWithoutExtension(LanguageFiles[languageTextIndex]);
 
-            if (languageDefault == languageText) return;
-            
+            string languageDefault = languageDefaultFileName?.Substring(LocalizedLanguageFileName.Length);
+            string languageText = languageTextFileName?.Substring(LocalizedLanguageFileName.Length);
+
+            string localeLanguageDefault = LanguageService.LocaleLanguage(languageDefault);
+            string localeLanguageText = LanguageService.LocaleLanguage(languageText);
+
             foreach (string languageExtension in LocalesLanguageExtensions)
             {
-                string defaultLanguagePath = $"{LorInstallPath}{LocalesPath}{languageDefault}{languageExtension}";
-                string newLanguagePath = $"{LorInstallPath}{LocalesPath}{languageText}{languageExtension}";
+                string defaultLanguagePath = $"{LorInstallPath}{LocalesPath}{localeLanguageDefault}{languageExtension}";
+                string newLanguagePath = $"{LorInstallPath}{LocalesPath}{localeLanguageText}{languageExtension}";
                 ReplaceLanguageFile(newLanguagePath, defaultLanguagePath);
             }
         }

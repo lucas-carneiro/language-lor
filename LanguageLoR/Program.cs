@@ -20,7 +20,7 @@ namespace LanguageLoR
                 {
                     if (lorKey != null)
                     {
-                        Object installPathObject = lorKey.GetValue(LorRegistryName);
+                        object installPathObject = lorKey.GetValue(LorRegistryName);
                         lorRegistryValue = installPathObject as string ?? lorRegistryValue;
                     }
                 }

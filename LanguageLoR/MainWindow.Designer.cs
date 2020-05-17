@@ -143,6 +143,7 @@
             this.Controls.Add(this.languageTextPicker);
             this.Controls.Add(this.changeLanguageButton);
             this.Name = "MainWindow";
+            this.ShowIcon = false;
             this.Text = "Language Picker LoR";
             this.ResumeLayout(false);
             this.PerformLayout();

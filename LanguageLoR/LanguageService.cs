@@ -9,7 +9,7 @@ namespace LanguageLoR
         
         public static string[] TextLanguages { get; private set; }
         public static string[] VoiceLanguages { get; private set; }
-        public static string DefaultLanguage { get; set; }
+        public static string DefaultLanguage { get; private set; }
 
         public static void Init()
         {

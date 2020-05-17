@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -38,11 +39,11 @@ namespace LanguageLoR
             LanguageFiles = Directory.GetFiles(_gamePlayDataPath, $"{LocalizedLanguageFileName}*{LocalizedLanguageExtension}")
                 .Where(s => !s.Contains(LanguageService.NoLocalizedLanguage)).ToArray();
 
-            StreamReader lorSettingsStream = File.OpenText($"{_lorProgramDataPath}{LorSettingsFilename}");
+            string lorSettingsYaml = File.ReadAllText($"{_lorProgramDataPath}{LorSettingsFilename}");
             IDeserializer deserializer = new DeserializerBuilder()
                 .WithNamingConvention(UnderscoredNamingConvention.Instance)
                 .Build();
-            LorSettings = deserializer.Deserialize<ProductSettingsModel>(lorSettingsStream);
+            LorSettings = deserializer.Deserialize<ProductSettingsModel>(lorSettingsYaml);
         }
 
         public static void UpdateLanguage(int languageDefaultIndex, int languageTextIndex, int languageVoiceIndex)
@@ -50,6 +51,21 @@ namespace LanguageLoR
             UpdateLocalesLanguage(languageDefaultIndex, languageTextIndex);
             UpdateGamePlayDataLanguage(languageDefaultIndex, languageTextIndex);
             UpdateEmbeddedGamePlayDataLanguage(languageDefaultIndex, languageTextIndex);
+            UpdateVoiceLanguage(languageVoiceIndex);
+        }
+
+        private static void UpdateVoiceLanguage(int languageVoiceIndex)
+        {
+            string languageVoice = LorSettings.LocaleData.AvailableLocales[languageVoiceIndex];
+            LorSettings.Settings.Locale = languageVoice;
+            
+            ISerializer serializer = new SerializerBuilder()
+                .WithNamingConvention(UnderscoredNamingConvention.Instance)
+                .Build();
+            string lorSettingsYaml = serializer.Serialize(LorSettings);
+            
+            byte[] lorSettingsByte = new UTF8Encoding(true).GetBytes(lorSettingsYaml);
+            File.WriteAllBytes($"{_lorProgramDataPath}{LorSettingsFilename}", lorSettingsByte);
         }
 
         private static void UpdateEmbeddedGamePlayDataLanguage(int languageDefaultIndex, int languageTextIndex)

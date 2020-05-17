@@ -46,17 +46,18 @@ namespace LanguageLoR
             LorSettings = deserializer.Deserialize<ProductSettingsModel>(lorSettingsYaml);
         }
 
-        public static void UpdateLanguage(int languageDefaultIndex, int languageTextIndex, int languageVoiceIndex)
+        public static void UpdateLanguage(int languageTextIndex, int languageVoiceIndex)
         {
-            UpdateLocalesLanguage(languageDefaultIndex, languageTextIndex);
-            UpdateGamePlayDataLanguage(languageDefaultIndex, languageTextIndex);
-            UpdateEmbeddedGamePlayDataLanguage(languageDefaultIndex, languageTextIndex);
             UpdateVoiceLanguage(languageVoiceIndex);
+            UpdateLocalesLanguage(languageTextIndex);
+            UpdateGamePlayDataLanguage(languageTextIndex);
+            UpdateEmbeddedGamePlayDataLanguage(languageTextIndex);
         }
 
         private static void UpdateVoiceLanguage(int languageVoiceIndex)
         {
             string languageVoice = LorSettings.LocaleData.AvailableLocales[languageVoiceIndex];
+            if (LorSettings.Settings.Locale == languageVoice) return;
             LorSettings.Settings.Locale = languageVoice;
             
             ISerializer serializer = new SerializerBuilder()
@@ -68,14 +69,14 @@ namespace LanguageLoR
             File.WriteAllBytes($"{_lorProgramDataPath}{LorSettingsFilename}", lorSettingsByte);
         }
 
-        private static void UpdateEmbeddedGamePlayDataLanguage(int languageDefaultIndex, int languageTextIndex)
+        private static void UpdateEmbeddedGamePlayDataLanguage(int languageTextIndex)
         {
-            UpdateGamePlayDataLanguage(languageDefaultIndex, languageTextIndex, true);
+            UpdateGamePlayDataLanguage(languageTextIndex, true);
         }
 
-        private static void UpdateGamePlayDataLanguage(int languageDefaultIndex, int languageTextIndex, bool isEmbedded = false)
+        private static void UpdateGamePlayDataLanguage(int languageTextIndex, bool isEmbedded = false)
         {
-            string languageDefault = LorSettings.LocaleData.AvailableLocales[languageDefaultIndex];
+            string languageDefault = LorSettings.Settings.Locale;
             string languageText = LanguageFiles[languageTextIndex];
 
             string languageDefaultFileName = $"{LocalizedLanguageFileName}{languageDefault.ToLower()}{LocalizedLanguageExtension}";
@@ -93,11 +94,11 @@ namespace LanguageLoR
             return $"{languagePath}{localizedLanguage}";
         }
 
-        private static void UpdateLocalesLanguage(int languageDefaultIndex, int languageTextIndex)
+        private static void UpdateLocalesLanguage(int languageTextIndex)
         {
             string languageTextFileName = Path.GetFileNameWithoutExtension(LanguageFiles[languageTextIndex]);
 
-            string languageDefault = LorSettings.LocaleData.AvailableLocales[languageDefaultIndex];
+            string languageDefault = LorSettings.Settings.Locale;
             string languageText = languageTextFileName?.Substring(LocalizedLanguageFileName.Length);
 
             string localeLanguageDefault = LanguageService.LocaleLanguage(languageDefault);

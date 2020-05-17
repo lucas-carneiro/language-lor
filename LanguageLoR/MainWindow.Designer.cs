@@ -37,8 +37,8 @@
             this.lorInstallPathTextField = new System.Windows.Forms.TextBox();
             this.lorInstallPathLabel = new System.Windows.Forms.Label();
             this.languageDefaultLabel = new System.Windows.Forms.Label();
-            this.languageDefaultPicker = new System.Windows.Forms.ComboBox();
             this.loadingLabel = new System.Windows.Forms.Label();
+            this.languageDefaultTextField = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // changeLanguageButton
@@ -111,15 +111,6 @@
             this.languageDefaultLabel.Text = "Default Language";
             this.languageDefaultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // languageDefaultPicker
-            // 
-            this.languageDefaultPicker.FormattingEnabled = true;
-            this.languageDefaultPicker.Location = new System.Drawing.Point(136, 140);
-            this.languageDefaultPicker.Name = "languageDefaultPicker";
-            this.languageDefaultPicker.Size = new System.Drawing.Size(174, 23);
-            this.languageDefaultPicker.TabIndex = 7;
-            this.languageDefaultPicker.SelectedValueChanged += new System.EventHandler(this.SelectLanguageDefaultPicker);
-            // 
             // loadingLabel
             // 
             this.loadingLabel.Location = new System.Drawing.Point(42, 299);
@@ -128,14 +119,22 @@
             this.loadingLabel.TabIndex = 9;
             this.loadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // languageDefaultTextField
+            // 
+            this.languageDefaultTextField.Enabled = false;
+            this.languageDefaultTextField.Location = new System.Drawing.Point(136, 140);
+            this.languageDefaultTextField.Name = "languageDefaultTextField";
+            this.languageDefaultTextField.Size = new System.Drawing.Size(174, 23);
+            this.languageDefaultTextField.TabIndex = 10;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(462, 343);
+            this.Controls.Add(this.languageDefaultTextField);
             this.Controls.Add(this.loadingLabel);
             this.Controls.Add(this.languageDefaultLabel);
-            this.Controls.Add(this.languageDefaultPicker);
             this.Controls.Add(this.lorInstallPathLabel);
             this.Controls.Add(this.lorInstallPathTextField);
             this.Controls.Add(this.languageVoiceLabel);
@@ -158,8 +157,8 @@
         private System.Windows.Forms.Label lorInstallPathLabel;
         private System.Windows.Forms.TextBox lorInstallPathTextField;
         private System.Windows.Forms.Label languageDefaultLabel;
-        private System.Windows.Forms.ComboBox languageDefaultPicker;
         private System.Windows.Forms.Button changeLanguageButton;
         private System.Windows.Forms.Label loadingLabel;
+        private System.Windows.Forms.TextBox languageDefaultTextField;
     }
 }

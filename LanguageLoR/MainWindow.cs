@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace LanguageLoR
@@ -8,6 +9,7 @@ namespace LanguageLoR
         private const string LorPathNotFoundErrorMessage = "Path not found! LoR is probably not installed.";
         private const string LoadingMessage = "Replacing language...";
         private const string FinishedMessage = "Language successfully replaced!";
+        private const string InstructionsLink = "https://github.com/lucas-carneiro/language-lor#instructions";
         public MainWindow()
         {
             InitializeComponent();
@@ -34,6 +36,11 @@ namespace LanguageLoR
         private void AboutButtonClick(object sender, EventArgs e)
         {
             new AboutWindow().Show();
+        }
+
+        private void InstructionsButtonClick(object sender, EventArgs e)
+        {
+            Process.Start(InstructionsLink);
         }
     }
 }

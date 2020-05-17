@@ -40,6 +40,7 @@
             this.loadingLabel = new System.Windows.Forms.Label();
             this.languageDefaultTextField = new System.Windows.Forms.TextBox();
             this.aboutLabel = new System.Windows.Forms.Label();
+            this.instructionsLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // changeLanguageButton
@@ -136,13 +137,26 @@
             this.aboutLabel.Size = new System.Drawing.Size(44, 23);
             this.aboutLabel.TabIndex = 11;
             this.aboutLabel.Text = "About";
+            this.aboutLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.aboutLabel.Click += new System.EventHandler(this.AboutButtonClick);
+            // 
+            // instructionsLabel
+            // 
+            this.instructionsLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.instructionsLabel.Location = new System.Drawing.Point(12, 312);
+            this.instructionsLabel.Name = "instructionsLabel";
+            this.instructionsLabel.Size = new System.Drawing.Size(74, 23);
+            this.instructionsLabel.TabIndex = 12;
+            this.instructionsLabel.Text = "Instructions";
+            this.instructionsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.instructionsLabel.Click += new System.EventHandler(this.InstructionsButtonClick);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(462, 343);
+            this.Controls.Add(this.instructionsLabel);
             this.Controls.Add(this.aboutLabel);
             this.Controls.Add(this.languageDefaultTextField);
             this.Controls.Add(this.loadingLabel);
@@ -175,5 +189,6 @@
         private System.Windows.Forms.Label loadingLabel;
         private System.Windows.Forms.TextBox languageDefaultTextField;
         private System.Windows.Forms.Label aboutLabel;
+        private System.Windows.Forms.Label instructionsLabel;
     }
 }

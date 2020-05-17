@@ -2,7 +2,7 @@
 Program that allows users to change text and voice languages without logging out from Legends of Runeterra and manually modifying files from game folder.
 
 ## Installation
-Download it from releases, and then open it.
+Download it from [releases](https://github.com/lucas-carneiro/language-lor/releases), and then open it.
 
 ## Instructions
 ![Main window](./images/main-window.png)

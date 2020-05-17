@@ -36,6 +36,8 @@ namespace LanguageLoR
 
         public static string LocalizedLanguage(string language)
         {
+            language = language.ToLower();
+            
             if (language.Length == 2)
             {
                 switch (language)
@@ -53,13 +55,17 @@ namespace LanguageLoR
 
             if (language == "es-419") return "es_mx";
             
-            return language.Replace('-', '_').ToLower();
+            return language.Replace('-', '_');
         }
 
         public static string LocaleLanguage(string language)
         {
+            language = language.ToLower();
+            
             switch (language)
             {
+                case "es_mx":
+                    return "es-419";
                 case "ja_jp":
                     return "ja";
                 case "ko_kr":

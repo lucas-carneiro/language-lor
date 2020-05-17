@@ -30,5 +30,10 @@ namespace LanguageLoR
             );
             loadingLabel.Text = FinishedMessage;
         }
+
+        private void AboutButtonClick(object sender, EventArgs e)
+        {
+            new AboutWindow().Show();
+        }
     }
 }

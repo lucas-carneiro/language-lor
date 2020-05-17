@@ -39,6 +39,7 @@
             this.languageDefaultLabel = new System.Windows.Forms.Label();
             this.loadingLabel = new System.Windows.Forms.Label();
             this.languageDefaultTextField = new System.Windows.Forms.TextBox();
+            this.aboutLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // changeLanguageButton
@@ -127,11 +128,22 @@
             this.languageDefaultTextField.Size = new System.Drawing.Size(174, 23);
             this.languageDefaultTextField.TabIndex = 10;
             // 
+            // aboutLabel
+            // 
+            this.aboutLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.aboutLabel.Location = new System.Drawing.Point(406, 312);
+            this.aboutLabel.Name = "aboutLabel";
+            this.aboutLabel.Size = new System.Drawing.Size(44, 23);
+            this.aboutLabel.TabIndex = 11;
+            this.aboutLabel.Text = "About";
+            this.aboutLabel.Click += new System.EventHandler(this.AboutButtonClick);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(462, 343);
+            this.Controls.Add(this.aboutLabel);
             this.Controls.Add(this.languageDefaultTextField);
             this.Controls.Add(this.loadingLabel);
             this.Controls.Add(this.languageDefaultLabel);
@@ -142,9 +154,10 @@
             this.Controls.Add(this.languageVoicePicker);
             this.Controls.Add(this.languageTextPicker);
             this.Controls.Add(this.changeLanguageButton);
+            this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.ShowIcon = false;
-            this.Text = "Language Picker LoR";
+            this.Text = "Language LoR";
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -161,5 +174,6 @@
         private System.Windows.Forms.Button changeLanguageButton;
         private System.Windows.Forms.Label loadingLabel;
         private System.Windows.Forms.TextBox languageDefaultTextField;
+        private System.Windows.Forms.Label aboutLabel;
     }
 }

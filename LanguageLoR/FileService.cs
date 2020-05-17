@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using YamlDotNet.RepresentationModel;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -60,11 +59,14 @@ namespace LanguageLoR
 
         private static void UpdateGamePlayDataLanguage(int languageDefaultIndex, int languageTextIndex, bool isEmbedded = false)
         {
-            string languageDefault = Path.GetFileName(LanguageFiles[languageDefaultIndex]);
-            string languageText = Path.GetFileName(LanguageFiles[languageTextIndex]);
+            string languageDefault = LorSettings.LocaleData.AvailableLocales[languageDefaultIndex];
+            string languageText = LanguageFiles[languageTextIndex];
 
-            string defaultLanguagePath = LocalizedLanguageToFile(languageDefault, isEmbedded);
-            string newLanguagePath = LocalizedLanguageToFile(languageText, isEmbedded);
+            string languageDefaultFileName = $"{LocalizedLanguageFileName}{languageDefault.ToLower()}{LocalizedLanguageExtension}";
+            string languageTextFileName = Path.GetFileName(languageText);
+
+            string defaultLanguagePath = LocalizedLanguageToFile(languageDefaultFileName, isEmbedded);
+            string newLanguagePath = LocalizedLanguageToFile(languageTextFileName, isEmbedded);
             
             ReplaceLanguageFile(newLanguagePath, defaultLanguagePath);
         }
@@ -77,10 +79,9 @@ namespace LanguageLoR
 
         private static void UpdateLocalesLanguage(int languageDefaultIndex, int languageTextIndex)
         {
-            string languageDefaultFileName = Path.GetFileNameWithoutExtension(LanguageFiles[languageDefaultIndex]);
             string languageTextFileName = Path.GetFileNameWithoutExtension(LanguageFiles[languageTextIndex]);
 
-            string languageDefault = languageDefaultFileName?.Substring(LocalizedLanguageFileName.Length);
+            string languageDefault = LorSettings.LocaleData.AvailableLocales[languageDefaultIndex];
             string languageText = languageTextFileName?.Substring(LocalizedLanguageFileName.Length);
 
             string localeLanguageDefault = LanguageService.LocaleLanguage(languageDefault);

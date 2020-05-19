@@ -10,9 +10,16 @@ namespace LanguageLoR
         public static string[] TextLanguages { get; private set; }
         public static string[] VoiceLanguages { get; private set; }
         public static string DefaultLanguage { get; private set; }
+        public static bool InitFailed { get; private set; }
 
         public static void Init()
         {
+            if (FileService.InitFailed)
+            {
+                InitFailed = true;
+                return;
+            }
+            
             TextLanguages = new string[FileService.LanguageFiles.Length];
             for (int i = 0; i < TextLanguages.Length; i++)
             {

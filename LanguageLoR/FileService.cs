@@ -24,18 +24,25 @@ namespace LanguageLoR
         public static string LorInstallPath { get; private set; }
         public static string[] LanguageFiles { get; private set; }
         public static ProductSettingsModel LorSettings { get; private set; }
+        public static bool InitFailed { get; private set; }
 
         public static void Init()
         {
+            if (RegistryService.InitFailed)
+            {
+                InitFailed = true;
+                return;
+            }
+            
             LorInstallPath = RegistryService.LorInstallPathRegistryValue?
                 .Substring(0, RegistryService.LorInstallPathRegistryValue.IndexOf(LorFolderName, StringComparison.Ordinal) + LorFolderName.Length);
             _lorProgramDataPath = RegistryService.LorProgramDataPathRegistryValue?
                 .Substring(0, RegistryService.LorProgramDataPathRegistryValue.LastIndexOf('/') + 1);
-            
+        
             _localesPath = $"{LorInstallPath}{_localesPath}";
             _gamePlayDataPath = $"{LorInstallPath}{_gamePlayDataPath}";
             _embeddedGamePlayDataPath = $"{LorInstallPath}{_embeddedGamePlayDataPath}";
-            
+        
             LanguageFiles = Directory.GetFiles(_gamePlayDataPath, $"{LocalizedLanguageFileName}*{LocalizedLanguageExtension}")
                 .Where(s => !s.Contains(LanguageService.NoLocalizedLanguage)).ToArray();
 

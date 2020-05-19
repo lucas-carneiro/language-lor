@@ -13,7 +13,17 @@ namespace LanguageLoR
         public MainWindow()
         {
             InitializeComponent();
-            lorInstallPathTextField.Text = FileService.LorInstallPath ?? LorPathNotFoundErrorMessage;
+
+            if (LanguageService.InitFailed)
+            {
+                lorInstallPathTextField.Text = LorPathNotFoundErrorMessage;
+                languageTextPicker.Enabled = false;
+                languageVoicePicker.Enabled = false;
+                changeLanguageButton.Enabled = false;
+                return;
+            }
+            
+            lorInstallPathTextField.Text = FileService.LorInstallPath;
             languageDefaultTextField.Text = LanguageService.DefaultLanguage;
             
             languageTextPicker.Items.AddRange(LanguageService.TextLanguages);

@@ -11,11 +11,13 @@ namespace LanguageLoR
 
         public static string LorInstallPathRegistryValue { get; private set; }
         public static string LorProgramDataPathRegistryValue { get; private set; }
+        public static bool InitFailed { get; private set; }
 
         public static void Init()
         {
             LorInstallPathRegistryValue = GetRegistryValue(LorGamePathRegistryName);
             LorProgramDataPathRegistryValue = GetRegistryValue(LorProgramDataPathRegistryName);
+            InitFailed = LorInstallPathRegistryValue == null || LorProgramDataPathRegistryValue == null;
         }
 
         private static string GetRegistryValue(string registryName)
